@@ -14,7 +14,7 @@ env:
   CARL_BRANCH: "master14"
   CARL_GIT_URL: "https://github.com/smtrat/carl.git"
   STORM_GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  STORM_BRANCH: "master"
+  STORM_BRANCH: "${{ github.sha }}"
   # github runners currently have two cores
   NR_JOBS: "2"
 
