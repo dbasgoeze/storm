@@ -14,7 +14,7 @@ env:
   CARL_BRANCH: "master14"
   CARL_GIT_URL: "https://github.com/smtrat/carl.git"
   STORM_GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  STORM_BRANCH: "master"
+  STORM_BRANCH: "${{ github.head_ref || github.sha }}"
   # github runners currently have two cores
   NR_JOBS: "2"
 
@@ -32,8 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro: ["ubuntu-18.04", "debian-10", "debian-9", "ubuntu-20.04"]
-        debugOrRelease: ["debug", "release"]
+        #distro: ["ubuntu-18.04", "debian-10", "debian-9", "ubuntu-20.04"]
+        #debugOrRelease: ["debug", "release"]
+        distro: ["debian-10"]
+        debugOrRelease: ["debug"]
     steps:
       - name: Setup cmake arguments
         # this is strangely the best way to implement environment variables based on the value of another
@@ -45,7 +47,8 @@ jobs:
       - name: Init Docker
         run: sudo docker run -d -it --name storm --privileged movesrwth/storm-basesystem:${{ matrix.distro }}
       - name: Git clone
-        run: sudo docker exec storm git clone --branch $STORM_BRANCH $STORM_GIT_URL /opt/storm
+        run: |
+          sudo docker exec storm bash -c "mkdir /opt/storm; cd /opt/storm; git init && git remote add origin ${STORM_GIT_URL} && git fetch --depth 1 origin ${STORM_BRANCH} && git checkout FETCH_HEAD"
       - name: Run cmake
         run: sudo docker exec storm bash -c "mkdir /opt/storm/build; cd /opt/storm/build; cmake .. ${CMAKE_ARGS}"
       - name: Build storm
@@ -119,7 +122,8 @@ jobs:
         # Build & TEST & DEPLOY STORM
         #####
       - name: Git clone
-        run: sudo docker exec storm git clone --branch $STORM_BRANCH $STORM_GIT_URL /opt/storm
+        run: |
+          sudo docker exec storm bash -c "mkdir /opt/storm; cd /opt/storm; git init && git remote add origin ${STORM_GIT_URL} && git fetch --depth 1 origin ${STORM_BRANCH} && git checkout FETCH_HEAD"
       - name: Run cmake
         run: sudo docker exec storm bash -c "mkdir /opt/storm/build; cd /opt/storm/build; cmake .. ${CMAKE_ARGS}"
       - name: Build storm
