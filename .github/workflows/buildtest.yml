@@ -122,13 +122,13 @@ jobs:
         # Build & TEST & DEPLOY STORM
         #####
       - name: Git shallow clone
-        if: ${{ !(github.ref == 'refs/heads/master') }}
+        if: ${{ !(github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master') }}
         run: |
           # git clone cannot clone individual commits based on a sha and some other refs
           sudo docker exec storm bash -c "mkdir /opt/storm; cd /opt/storm; git init && git remote add origin ${STORM_GIT_URL} && git fetch origin ${STORM_BRANCH} && git checkout FETCH_HEAD"
       - name: Git deep clone
         # needed for versioning for now
-        if: github.ref == 'refs/heads/master'
+        if: github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
         run: |
           sudo docker exec storm git clone --branch master $STORM_GIT_URL /opt/storm
       - name: Run cmake
