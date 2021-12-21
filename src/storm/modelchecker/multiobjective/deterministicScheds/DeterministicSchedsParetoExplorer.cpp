@@ -385,8 +385,7 @@ std::unique_ptr<CheckResult> DeterministicSchedsParetoExplorer<SparseModelType, 
                 eps.back() = storm::utility::convertNumber<GeometryValueType>(1e-8);
             }
         }
-        STORM_PRINT_AND_LOG("Relative precision is " << storm::utility::vector::toString(storm::utility::vector::convertNumericVector<double>(eps))
-                                                     << '\n');
+        STORM_PRINT_AND_LOG("Relative precision is " << storm::utility::vector::toString(storm::utility::vector::convertNumericVector<double>(eps)) << '\n');
     } else {
         STORM_LOG_THROW(env.modelchecker().multi().getPrecisionType() == MultiObjectiveModelCheckerEnvironment::PrecisionType::Absolute,
                         storm::exceptions::IllegalArgumentException, "Unknown multiobjective precision type.");

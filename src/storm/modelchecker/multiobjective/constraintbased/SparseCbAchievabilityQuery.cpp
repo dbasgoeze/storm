@@ -55,7 +55,8 @@ bool SparseCbAchievabilityQuery<SparseModelType>::checkAchievability() {
     swCheck.stop();
 
     if (storm::settings::getModule<storm::settings::modules::CoreSettings>().isShowStatisticsSet()) {
-        STORM_PRINT_AND_LOG("Building the constraintsystem took " << swInitialization << " seconds and checking the SMT formula took " << swCheck << " seconds.\n");
+        STORM_PRINT_AND_LOG("Building the constraintsystem took " << swInitialization << " seconds and checking the SMT formula took " << swCheck
+                                                                  << " seconds.\n");
     }
 
     switch (result) {

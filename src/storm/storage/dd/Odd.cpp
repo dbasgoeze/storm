@@ -129,10 +129,13 @@ void Odd::exportToDot(std::string const& filename) const {
     storm::utility::openFile(filename, dotFile);
 
     // Print header.
-    dotFile << "digraph \"ODD\" {\n" << "center=true;\n" << "edge [dir = none];\n";
+    dotFile << "digraph \"ODD\" {\n"
+            << "center=true;\n"
+            << "edge [dir = none];\n";
 
     // Print levels as ranks.
-    dotFile << "{ node [shape = plaintext];\n" << "edge [style = invis];\n";
+    dotFile << "{ node [shape = plaintext];\n"
+            << "edge [style = invis];\n";
     std::vector<std::string> levelNames;
     for (uint_fast64_t level = 0; level < this->getHeight(); ++level) {
         levelNames.push_back("\"" + std::to_string(level) + "\"");

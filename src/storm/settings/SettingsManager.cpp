@@ -201,7 +201,8 @@ void SettingsManager::setFromConfigurationFile(std::string const& configFilename
                 // If the option was already set from the command line, we issue a warning and ignore the
                 // settings from the configuration file.
                 STORM_LOG_WARN("The option '" << option->getLongName() << "' of module '" << option->getModuleName()
-                                              << "' has been set in the configuration file '" << configFilename << "', but was overwritten on the command line.\n");
+                                              << "' has been set in the configuration file '" << configFilename
+                                              << "', but was overwritten on the command line.\n");
             } else {
                 // If, however, the option has not been set yet, we try to assign values ot its arguments
                 // based on the argument strings.
@@ -373,8 +374,7 @@ std::string SettingsManager::getHelpForModule(std::string const& moduleName, uin
         if (!includeAdvanced) {
             displayedModuleName += " (" + std::to_string(numOfOptions) + "/" + std::to_string(moduleIterator->second.size()) + " shown)";
         }
-        stream << "##### Module " << displayedModuleName << " " << std::string(std::min(maxLength, maxLength - displayedModuleName.length() - 14), '#')
-               << '\n';
+        stream << "##### Module " << displayedModuleName << " " << std::string(std::min(maxLength, maxLength - displayedModuleName.length() - 14), '#') << '\n';
 
         // Save the flags for std::cout so we can manipulate them and be sure they will be restored as soon as this
         // stream goes out of scope.

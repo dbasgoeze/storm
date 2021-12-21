@@ -133,7 +133,8 @@ TEST(NeutralECRemover, SimpleModelTest) {
                         }
                     }
                     EXPECT_TRUE(foundEqualEntry) << "Could not matching entry for expected entry'" << expectedEntry.getValue() << " (row " << expectedRow
-                                                 << ", column " << expectedEntry.getColumn() << "). Was searching at row " << actualRow << " of actual matrix \n"
+                                                 << ", column " << expectedEntry.getColumn() << "). Was searching at row " << actualRow
+                                                 << " of actual matrix \n"
                                                  << res.matrix << ".";
                 }
             }

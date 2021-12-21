@@ -1156,7 +1156,8 @@ cpptempl::data_map ExplicitJitJaniModelBuilder<ValueType, RewardModelType>::gene
     indent(vectorSource, indentLevel + 1) << "choice.add(outStateIndex, value);\n";
 
     std::stringstream tmp;
-    indent(tmp, indentLevel + 1) << "{% for reward in destination_rewards %}choice.addReward({$reward.index}, probability * transientOut.{$reward.variable});\n";
+    indent(tmp, indentLevel + 1)
+        << "{% for reward in destination_rewards %}choice.addReward({$reward.index}, probability * transientOut.{$reward.variable});\n";
     indent(tmp, indentLevel + 1) << "{% endfor %}\n";
     vectorSource << cpptempl::parse(tmp.str(), modelData);
     indent(vectorSource, indentLevel) << "}\n\n";
@@ -1178,8 +1179,7 @@ cpptempl::data_map ExplicitJitJaniModelBuilder<ValueType, RewardModelType>::gene
                 indent(vectorSource, indentLevel + 2 + index) << "highestLevel = destination" << index << ".highestLevel();\n";
             } else {
                 indent(vectorSource, indentLevel + 2 + index) << "lowestLevel = std::min(lowestLevel, destination" << index << ".lowestLevel());\n";
-                indent(vectorSource, indentLevel + 2 + index)
-                    << "highestLevel = std::max(highestLevel, destination" << index << ".highestLevel());\n";
+                indent(vectorSource, indentLevel + 2 + index) << "highestLevel = std::max(highestLevel, destination" << index << ".highestLevel());\n";
             }
         }
     }
